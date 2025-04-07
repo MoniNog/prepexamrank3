@@ -1,0 +1,5 @@
+1Que se passe-t-il si tu enlèves les appels à uztgu
+2pthread_mutex_lock et pthread_mutex_unlock
+	(verrouillage/déverrouillage) ?
+		Sans les appels a lock/unlock, parfois 
+		le compte est incorrect (inferieur)Pourquoi protège-t-on la variable count avec fin.

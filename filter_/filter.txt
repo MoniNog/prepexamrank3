@@ -1,0 +1,56 @@
+filter.txt
+tant que `i` est plus petit que `len_s`
+{
+	reinitialiser `a` = 0
+	initialiser repere `start` = i;
+	
+	tant que x[a] == s[i]
+		+ securiser : a est plus petit que len_x, i est plus petit que len_s et que 
+	{
+		i++ ; a++;
+	}
+	si on est arriver au bout de la sequence, `len_x = a`
+	{
+		declarer et initialiser une variable int = 0;
+		tant que j est plus petit que len_x
+		{
+			print *
+			j++;
+		}
+		si on est a la fin ou audela de s, i >= len_s
+		{
+			break
+		}
+		sinon
+			continu
+	}
+	sinon, 
+		i reprend sa valeur start
+	print s[i]
+	i++;
+	}
+}
+
+
+void	filter(char	*s, char *x){
+	lenx = strlen(x);
+	lens = strlen(s);
+	int a = 0;
+	int i = 0;
+	int start;
+
+	for (int i = 0, i < lens, i++){
+		start = i;
+		for (a = 0, a < lenx && i <lens && x[a] == s[i], a++, i++);
+		if (a == lenx){
+			for (int j = 0, j < lenx, j++)
+				printf("*");
+			if (i >= lens)
+				break ;
+			continue ;
+		}
+		else
+			i = start;
+		printf("%c", s[i]);
+	}
+}
