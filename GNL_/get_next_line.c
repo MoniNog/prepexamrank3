@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: monoguei <monoguei@student.lausanne42.c    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/07 20:40:50 by monoguei          #+#    #+#             */
+/*   Updated: 2025/04/08 12:14:09 by monoguei         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <unistd.h>
 #include <stdio.h>
 #include <fcntl.h>
@@ -153,6 +165,7 @@ char	*get_next_line(int fd)
 	} 
 	else
 		line = strdup(buf_static);
+		// printf("line : (%s)\n", line)
 // tant quil y a qqch a lire (== EOF not found)
 //		1. pos_nl	strchr
 //		2. buf_beg 	(remplir pour commencer avec strdup(buf_static))
@@ -165,14 +178,15 @@ char	*get_next_line(int fd)
 //		6. break
 // else
 //	   (3.)attacher bagin a total
-	while (bytes_read > 0)//tant que EOF na pas ete trouve dans le buf
+	while (bytes_read > 0 && buf_static && *buf_static)//tant que EOF na pas ete trouve dans le buf
 	{
 		bytes_read = read(fd, buf_static, BUFFER_SIZE);
 		pos_nl = my_strchr(buf_static, '\n');
 		buf_begin = strdup(buf_static);
-
+// (\n\n34567890)
 		if (pos_nl != NULL)// \n trouvee ! jattache debut du buf au total
 		{
+			// 0 - 0 
 			index_nl = pos_nl - buf_static;// index en int (ecart entre les deux pointeurs)
 			buf_begin = substr(buf_static, 0, index_nl);//je decoupe le debut jusqua '\n'
 			line = strjoin(line, buf_begin);//jattache ce debut au total que jai deja
@@ -202,6 +216,8 @@ char	*get_next_line(int fd)
 	return(line);
 }
 
+// si \n\n -> ligne = NULL -> line = vide
+
 int main(int ac, char **av)
 {
 	int fd = open(av[1], O_RDONLY);
@@ -212,11 +228,14 @@ int main(int ac, char **av)
 	}
 	
 	char	*line;
+	int i = 0;
 	line = get_next_line(fd);
-	while (line)
+	while (i < 10)
 	{
-		printf("%s\n", line);
+		if (line)
+			printf("%s\n", line);
 		line = get_next_line(fd);
+		i++;
 	}
 	// printf("%s\n", line);
 

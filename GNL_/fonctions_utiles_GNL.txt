@@ -4,9 +4,6 @@ open()		Ouvre un fichier et retourne un fd.
 read()		Lit count octets dans un buffer.
 close()		Ferme un fd ouvert avec open().
 malloc()	Alloue dynamiquement de la mémoire pour stocker la ligne.
-
-
-
 free()		Libère la mémoire allouée.
 strchr()	Trouve un \n dans une chaîne.
 strjoin()	(à coder)	Concatène deux chaînes pour assembler la ligne.
