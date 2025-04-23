@@ -6,13 +6,14 @@
 // ferror, feof, isspace, isdigit, stdin, 
 // va_start, va_copy, va_arg, va_end
 
-#include <stdarg.h>
-#include <stdio.h>
-#include <ctype.h>
+int scan_char(int fd, va_list ap)// v2 - ir0 - .. - r1
+int scan_int(int fd, va_list ap)// v4. - w0 - i2 - i(i1)r0 - w2. - i1 - r1
+int scan_string(int fd, va_list ap)// v3 - ir0 - w2. - i1 - r1
+void skip_input_space(int fd)//v2 - w1 - i1
+int received_input(const char *format, va_list ap)//** -> *, fd -> 0
+int ft_scanf(const char *format, ...)// va_start(ap, format); - w{} - va_end(ap):
 
-// Fonctions autorisées : fgetc, ungetc, feof, ferror, isspace, isdigit, stdin, va_start, va_arg, va_end
-
-int scan_char(int fd, va_list ap)
+int scan_char(int fd, va_list ap)// v2 - ir0 - .. - r1
 {
 	FILE *file = stdin;
 	int c = fgetc(file);
@@ -26,7 +27,7 @@ int scan_char(int fd, va_list ap)
 	return 1; // succès
 }
 
-int scan_int(int fd, va_list ap)
+int scan_int(int fd, va_list ap)// v4. - w0 - i2 - i(i1)r0 - w2. - i1 - r1
 {
 	FILE *file = stdin;
 	int c;
@@ -45,9 +46,9 @@ int scan_int(int fd, va_list ap)
 		c = fgetc(file);
 	}
 
-	if (!isdigit(c))
+	if (!isdigit(c)) // !d
 	{
-		if (c != EOF)
+		if (c != EOF)//
 			ungetc(c, file);
 		return 0; // échec
 	}
@@ -61,16 +62,16 @@ int scan_int(int fd, va_list ap)
 
 	if (c != EOF)
 		ungetc(c, file);
+
 	return 1; // succès
 }
 
-int scan_string(int fd, va_list ap)
+int scan_string(int fd, va_list ap)// v3 - ir0 - w2. - i1 - r1
 {
-	FILE *file = stdin;
-	int c;
-	char *s = va_arg(ap, char *);
+	FILE 	*file = stdin;
+	int 	c = fgetc(file);
+	char 	*s = va_arg(ap, char *);
 
-	c = fgetc(file);
 	if (c == EOF)
 		return 0; // échec
 
@@ -87,7 +88,7 @@ int scan_string(int fd, va_list ap)
 	return 1; // succès
 }
 
-void skip_input_space(int fd)
+void skip_input_space(int fd)// v2 - w1 - i1
 {
 	FILE *file = stdin;
 	int c = fgetc(file);
@@ -116,7 +117,7 @@ int received_input(const char *format, va_list ap)//** -> *, fd -> 0
 	}
 }
 
-int ft_scanf(const char *format, ...)
+int ft_scanf(const char *format, ...)// va_start(ap, format); - w{} - va_end(ap):
 {
 	int i = 0;
 	int result = 0;

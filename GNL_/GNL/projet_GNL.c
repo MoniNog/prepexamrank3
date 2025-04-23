@@ -6,7 +6,7 @@
 /*   By: monoguei <monoguei@student.lausanne42.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 10:20:04 by moni              #+#    #+#             */
-/*   Updated: 2025/03/31 11:26:36 by monoguei         ###   ########.fr       */
+/*   Updated: 2025/04/15 12:31:54 by monoguei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,9 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
+/// @brief search new line
+/// @param s str
+/// @return NULL = no \n || s = pos of '\n'
 char	*ft_strchr_newline(const char *s)
 {
 	if (s == NULL)
@@ -59,8 +62,8 @@ char	*ft_strjoin(char *s1, char *s2)
 		s1[0] = '\0';
 	}
 	dest = malloc(sizeof(char) * ((ft_strlen(s1) + ft_strlen(s2)) + 1));
-	if (!dest)
-		return (NULL);
+		if (!dest)
+			return (NULL);
 	while (s1[++i])
 		dest[i] = s1[i];
 	while (s2[j])
@@ -84,17 +87,17 @@ char	*read_line(int fd, char *line)
 	ssize_t	bytes_read;
 
 	buffer = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
-	if (!buffer)
-		return (NULL);
+		if (!buffer)
+			return (NULL);
 	bytes_read = 1;
 	while (!ft_strchr_newline(line) && bytes_read > 0)
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
-		if (bytes_read == -1)
-		{
-			free(buffer);
-			return (NULL);
-		}
+			if (bytes_read == -1)
+			{
+				free(buffer);
+				return (NULL);
+			}
 		buffer[bytes_read] = '\0';
 		line = ft_strjoin(line, buffer);
 	}
