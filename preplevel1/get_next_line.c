@@ -132,7 +132,6 @@ char	*substr(char *s, int start, int len)
 // ;
 char	*get_next_line(int fd)
 {
-
 	char	*buf;
 
 	buf = malloc((sizeof(char)) * BUFFER_SIZE + 1);
@@ -143,12 +142,14 @@ char	*get_next_line(int fd)
 
 	char	*line = NULL;
 	char	*pos_nl = NULL;
+	int		index_nl = 0;
+	char	*buf_begin = NULL;
 
-	while((bytes_read = read(fd, buf, BUFFER_SIZE)) > 0)//tant que \n na pas ete trouve dans le buf
+	while((bytes_read = read(fd, buf, BUFFER_SIZE)) > 0)//tant que EOF na pas ete trouve dans le buf
 	{
+		// printf("Error %i bytes_read\n", (int)bytes_read);
 		pos_nl = my_strchr(buf, '\n');
-		char	*buf_begin = strdup(buf);
-		int		index_nl;
+		buf_begin = strdup(buf);
 
 		if (pos_nl != NULL)// \n trouvee ! jattache debut du buf au total
 		{
@@ -161,6 +162,7 @@ char	*get_next_line(int fd)
 		else
 			line = strjoin(line, buf);// si pas de \n, jattache la ligne (en entier) au total.
 	}
+	printf("line in GNL : %s\n", line);
 
 	if (bytes_read <= 0)
 	{	
@@ -173,7 +175,6 @@ char	*get_next_line(int fd)
 	return(line);
 }
 
-
 int main()
 {
 	int fd = open("text.txt", O_RDONLY);
@@ -183,8 +184,9 @@ int main()
 		return 1;
 	}
 	char	*line = get_next_line(fd);
-	printf("line : %s", line);
+	printf("line 1 : %s\n", line);
+	line = get_next_line(fd);
+	printf("line 2 : %s\n", line);
 	close(fd);
 	return 0;
-	memcpy()
 }
