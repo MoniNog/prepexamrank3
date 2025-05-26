@@ -1,0 +1,13 @@
+
+
+12345678901234567890
+## 2 Files Required
+
+:one: get_next_line.c 
+
+:two: get_next_line.h
+
+## Allowed Functions
+
+
+read, free and malloc

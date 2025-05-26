@@ -4,7 +4,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-# define BUFFER_SIZE 10
+# define BUFFER_SIZE 15
+
 int 	my_strlen(char *s)
 {
 	int i = 0;
@@ -126,54 +127,71 @@ char	*substr(char *s, int start, int len)
 	return (new_str);
 }
 
-// ️// Vérifier si le fd est valide et initialiser le stockage.
-// 	// fd = open("text.txt", O_RDONLY);
+void *my_memmove(void *dest, const void *src, size_t n)
+{
+	unsigned char *d = (unsigned char *)dest;
+	const unsigned char *s = (const unsigned char *)src;
 
-// ;
+	if (d < s) // Copie normale (vers l'avant)
+	{
+		for (size_t i = 0; i < n; i++)
+			d[i] = s[i];
+	}
+	else // Copie en arrière pour éviter les chevauchements
+	{
+		for (size_t i = n; i > 0; i--)
+			d[i - 1] = s[i - 1];
+	}
+	return dest;
+}
+
 char	*get_next_line(int fd)
 {
-	char	*buf;
-
-	buf = malloc((sizeof(char)) * BUFFER_SIZE + 1);
-	if (buf == NULL)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return NULL;
 
-	ssize_t	bytes_read;
-
+	static char buf[BUFFER_SIZE + 1]; // Stocke les restes entre appels
 	char	*line = NULL;
+	ssize_t	bytes_read;
 	char	*pos_nl = NULL;
-	int		index_nl = 0;
-	char	*buf_begin = NULL;
 
-	while((bytes_read = read(fd, buf, BUFFER_SIZE)) > 0)//tant que EOF na pas ete trouve dans le buf
+	while ((bytes_read = read(fd, buf + my_strlen(buf), BUFFER_SIZE - my_strlen(buf))) > 0)
 	{
-		// printf("Error %i bytes_read\n", (int)bytes_read);
-		pos_nl = my_strchr(buf, '\n');
-		buf_begin = strdup(buf);
+		buf[bytes_read + my_strlen(buf)] = '\0'; // Assurer le null-terminate
+		pos_nl = my_strchr(buf, '\n'); // Chercher '\n'
 
-		if (pos_nl != NULL)// \n trouvee ! jattache debut du buf au total
+		if (pos_nl) // '\n' trouvé
 		{
-			index_nl = pos_nl - buf;
-			buf_begin = substr(buf, 0, index_nl);//je decoupe le debut
-			line = strjoin(line, buf_begin);//jattache ce debut au total que jai deja
-			buf = substr(buf, index_nl + 1, my_strlen(buf) - index_nl - 1);// le reste apres \n est stocke dans buf(buf maj)
+			int index_nl = pos_nl - buf;
+			char *buf_begin = substr(buf, 0, index_nl + 1); // Extraire la ligne complète
+			line = strjoin(line, buf_begin);
 			free(buf_begin);
+
+			// 🔥 DEBUG AVANT MEMMOVE
+			// printf("Avant memmove: buf = [%s]\n", buf);
+
+			// ⚡ Correction : Ajuster la copie
+			int len_rest = my_strlen(buf) - index_nl - 1;
+			my_memmove(buf, buf + index_nl + 1, len_rest);
+			buf[len_rest] = '\0'; // ✅ Ajout du terminateur pour éviter les bugs
+
+			// 🔥 DEBUG APRÈS MEMMOVE
+			// printf("Après memmove: buf = [%s]\n", buf);
+			// if (my_strlen(buf) < BUFFER_SIZE)
+			// {
+			// 	bytes_read = read(fd, buf + my_strlen(buf), BUFFER_SIZE - my_strlen(buf));
+			// 	buf[bytes_read + my_strlen(buf)] = '\0';
+			// }
+			
+			break; // On arrête la lecture, car on a une ligne complète
 		}
 		else
-			line = strjoin(line, buf);// si pas de \n, jattache la ligne (en entier) au total.
-	}
-	printf("line in GNL : %s\n", line);
-
-	if (bytes_read <= 0)
-	{	
-		free(line);
-		printf("Error %i bytes_read\n", (int)bytes_read);
-		return NULL;
+			line = strjoin(line, buf); // Ajoute tout le buffer si pas de '\n'
 	}
 
-	free(buf);
-	return(line);
+	return line;
 }
+
 
 int main()
 {
@@ -184,9 +202,9 @@ int main()
 		return 1;
 	}
 	char	*line = get_next_line(fd);
-	printf("line 1 : %s\n", line);
+	printf("line : %s", line);
 	line = get_next_line(fd);
-	printf("line 2 : %s\n", line);
+	printf("line : %s", line);
 	close(fd);
 	return 0;
 }
