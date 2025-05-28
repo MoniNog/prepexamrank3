@@ -20,18 +20,18 @@ int ft_recursive_factorial(int nb)
 	return (nb * ft_recursive_factorial(nb - 1));
 }
 
-int ft_iterative_factorial(int nb)
-{
-	int res;
+// int ft_iterative_factorial(int nb)
+// {
+// 	int res;
 
-	res = 1;
-	while (nb > 0)
-	{
-		res = res * nb;
-		nb--;
-	}	
-	return (res);
-}
+// 	res = 1;
+// 	while (nb > 0)
+// 	{
+// 		res = res * nb;
+// 		nb--;
+// 	}	
+// 	return (res);
+// }
 
 int main(int ac, char **av)
 {

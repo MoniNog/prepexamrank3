@@ -6,7 +6,7 @@
 /*   By: monoguei <monoguei@student.lausanne42.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 18:23:22 by monoguei          #+#    #+#             */
-/*   Updated: 2025/05/25 11:21:16 by monoguei         ###   ########.fr       */
+/*   Updated: 2025/05/28 22:27:18 by monoguei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 
 int ft_sqrt(int nb)
 {
-	int x = nb - 1;
-	while (nb % x != x)
-		return (ft_sqrt(nb -1));
-	return (x);
+	4 % 2 = 0
+	4 / 2 = 2
+	if (nb / )
+	return (nb / (nb - 1));
+
 }
 
 int main( )
