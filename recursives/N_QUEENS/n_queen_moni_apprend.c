@@ -17,7 +17,6 @@
 #define NO 0
 #define YES 1
 
-
 int is_safe(int row, int col, int *queens)
 {
 	int i = 1;
