@@ -19,8 +19,8 @@
 
 int is_safe(int row, int col, int *queens)
 {
-	int i = 1;
-	while (i <= row)
+	int i = 0;
+	while (i < row)
 	{
 		if (queens[i] == col)						// même colonne ?
 			return NO;
@@ -33,13 +33,13 @@ int is_safe(int row, int col, int *queens)
 
 void	print_board(int *queens, int n)
 {
-	int row = 1;
-	int col = 1;
+	int row = 0;
+	int col = 0;
 
-	while (row <= n)
+	while (row < n)
 	{
-		col = 1;
-		while (col <= n)
+		col = 0;
+		while (col < n)
 		{
 			if (queens[row] == col)
 				printf("Q ");
@@ -55,13 +55,13 @@ void	print_board(int *queens, int n)
 
 void solve_nqueens(int row, int n, int *queens)// row = 2// int*queens contient les colonee des reines dans lordre des lignes
 {
-	if (row == n + 1)
+	if (row == n)
 	{
 		print_board(queens, n);
 		return ;
 	}
-	int col = 1;
-	while (col <= n)// je parcours toute la ligne
+	int col = 0;
+	while (col < n)// je parcours toute la ligne
 	{
 		if (is_safe(row, col, queens) == YES)
 		{
@@ -77,12 +77,22 @@ int main(int ac, char **av)
 	if (ac == 2)
 	{
 		int n = atoi(av[1]);
+		if (n <= 0)
+			return 1;
+		if (n == 2 || n == 3)
+		{
+			printf("Aucune solution possible pour n = %d\n", n);
+			return 1;
+		}
+
 		int *queens = malloc(sizeof(int) * n);
 		if (!queens)
 			return (1);
-		solve_nqueens(1, n, queens);
+
+		solve_nqueens(0, n, queens);
+		
 		free(queens);
-		return (1);
+		return (0);
 	}
-	return (0);
+	return (1);
 }
