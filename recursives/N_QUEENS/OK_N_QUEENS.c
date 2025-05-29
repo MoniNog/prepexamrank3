@@ -55,21 +55,22 @@ void	print_board(int *queens, int n)
 
 void solve_nqueens(int row, int n, int *queens)// row = 2// int*queens contient les colonee des reines dans lordre des lignes
 {
-	if (row == n)
+	if (row == n)//dernier rang atteint
 	{
 		print_board(queens, n);
 		return ;
 	}
 	int col = 0;
-	while (col < n)// je parcours toute la ligne
+	while (col < n)// tant que je n'ai pas essaye toutes les colonnes
 	{
 		if (is_safe(row, col, queens) == YES)
 		{
-			queens[row] = col;
-			solve_nqueens(row + 1, n, queens);
+			queens[row] = col;// je place la reine dans la ligne row et la colonne col
+			solve_nqueens(row + 1, n, queens);// je passe a la ligne suivante
 		}
 		col++;
 	}
+	return ;
 }
 
 int main(int ac, char **av)
@@ -91,7 +92,7 @@ int main(int ac, char **av)
 
 		solve_nqueens(0, n, queens);
 		
-		free(queens);
+		free(queens);//
 		return (0);
 	}
 	return (1);
