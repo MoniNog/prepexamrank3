@@ -2,6 +2,13 @@
     "files.associations": {
         "unistd.h": "c",
         "fcntl.h": "c",
-        "ctype.h": "c"
+        "ctype.h": "c",
+        "array": "c",
+        "deque": "c",
+        "string": "c",
+        "unordered_map": "c",
+        "vector": "c",
+        "string_view": "c",
+        "initializer_list": "c"
     }
 }
