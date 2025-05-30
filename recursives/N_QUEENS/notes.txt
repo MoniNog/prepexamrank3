@@ -1,0 +1,58 @@
+```
+void    solve_nqueens(int row, iint n, int *queens)
+{
+    si je suis dans le dernier rang, je print le board
+
+   while coline <
+        si cest safe
+            je place la reine ***queens[row] = col***
+            je passe a la ligne suivante en utilisant solve_queen et sa recursive row + 1
+}
+
+int is_safe(int row, int col, int *queens)
+{
+    tant que i est plus petit que row
+        si queens i (row i) == col (queens is cool)
+            NO
+        si abs(queens[i] - col) == abs(i - row) asolutly, queensis cool == i jump the row.
+            NO
+        incrementation
+    YESSSS
+}
+
+void    print_board(int *queens, int n)
+while rowwwn
+
+    while coline
+        if "Chaque reine a sa ligne de coke."
+            Q
+        else
+            .
+    \n
+    r++;
+
+\n
+
+
+
+
+
+
+
+
+
+
+is safe( int row, int col, int * queens
+int i = 0
+
+while i < row
+if queens [i] == col
+    NO
+if abs(queens[i] - col) == (abs(i - row))
+    NO
+yes
+
+if ((abs (queens [i] - col)) == abs (i - row))
+if abs queens i col abs i row
+if abs queens i col abs i row
+if abs queens i col abs i row
