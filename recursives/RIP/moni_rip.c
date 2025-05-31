@@ -6,7 +6,7 @@
 /*   By: monoguei <monoguei@student.lausanne42.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 18:45:04 by monoguei          #+#    #+#             */
-/*   Updated: 2025/05/30 08:28:48 by monoguei         ###   ########.fr       */
+/*   Updated: 2025/05/31 14:44:31 by monoguei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ char *remove_par(char *s)
 				s[i] = ' ';
 				i++;
 				extra++;
-	
 			}
 		}
 		if (extra > 0)
@@ -75,7 +74,6 @@ char *remove_par(char *s)
 				s[i] = ' ';
 				i++;
 				extra--;
-	
 			}
 		}
 		i = end;
@@ -84,12 +82,116 @@ char *remove_par(char *s)
 	return(s);
 }
 
+
+void print_spaces(int* pos, int size) {
+	int i=0;
+	while (i<size) {
+		printf("%i ", pos[i]);
+		i++;
+	}
+	printf("\n");
+}
+
+void	place_space(int n_space, int size, int *pos_spaces, int total_spaces)
+{
+	
+	if (n_space == 0)
+	{
+		print_spaces(pos_spaces, total_spaces);
+		return ;
+	}
+	int i = 0;
+	while (i < (size - n_space))
+	{
+		
+		pos_spaces[total_spaces - n_space] = i;						// jattribue cet emplacement pour un espace
+		place_space(n_space - 1, size, pos_spaces, total_spaces);	// jexplore toutes les possibilites que decoulent de ce choix
+		i++;														// jessaie avec un emplacement different.
+	}
+}
+
 int main(int ac, char **av)
 {
 	char *s = av[1];
 	printf("The input is  '%s'.\n", s);
 	printf("The result is '%s'.\n", remove_par(s));
 	printf("There are %i extra parenthesis.\n", count_extra_parentheses(s));
-	printf("There are %i parenthesis.\n", (int)strlen(s) - count_extra_parentheses(s));
-	
+	printf("There are %i parenthesis.\n", (int)strlen(s) - count_extra_parentheses(s));	
+	int* pos = malloc(sizeof(int)*count_extra_parentheses(s));
+	place_space(count_extra_parentheses(s), strlen(s), pos, count_extra_parentheses(s));
 }
+
+
+/*
+doublons
+afficher espace, parentheses en utilisant les positions
+*/
+
+// 0-16 
+// 5 espaces a placer => 5 etapes
+
+// E1 -> 2 // 16 poss 
+// E2 -> 4 // 15 poss
+// E3 -> 6 // 14 poss
+// E4 -> 7 // 13 poss
+// E5 -> 9 // 12 poss
+
+// une etape, placer une reine
+// une etape, placer un espace
+// 	toutes les possibilite qui decoulent de
+
+// void    solve_queen(int row, int n, int *queens)// chaque reine a un nombre correspondant a sa place sur la ligne
+// {
+// 	if (row == n)
+// 	{
+// 		print_board(queens, n);
+// 		return ;
+// 	}
+// 	int col = 0;								// a chaque fois que j'ai change de ligne, je recommence sur la premiere colonne.
+// //	while (emplacements possibles < len_tot)
+// 	while (col < n)								// je teste les differents emplacements possible pour Q (autant que n, car dimension du board)
+// 	{
+// 		if (is_safe(col, row, queens) == YES)	// si je peux,
+// 		{
+// 			queens[row] = col;					// je place
+// 			solve_queen(row + 1, n, queens);	// j'explore une possibilite a partir de la reine que jai pu placer
+// 		}
+// 		col++;									// je passe a la colonne suivante, emplacement suivant
+// 	}
+// }
+
+// E0 : 5 - 5 = 0 
+// E1 : 5 - 4 = 1
+// E2 : 5 - 3 = 2
+// E3 : 
+// E4 : 
+
+
+// Q1 = 3
+// Q2 = 1
+// Q3 = 5
+// Q4 = 2
+// les reines reprensente les emplacements dans les rangs
+// les espaces sont places a tel emplacement
+
+// E5 
+// E4 2
+// E3 5
+
+
+
+// . . . . . 0 00000
+// . . . . 0 . 00000
+// . . . 0 . . 00000
+
+
+// . . . . Q
+// . . Q 
+// Q 
+// .
+
+// _ _ _ _ _
+// 0 1 2 3 4
+// * 
+//   *
+//     * 
