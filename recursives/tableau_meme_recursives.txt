@@ -1,0 +1,67 @@
++----------------------------+------------------------------------------+																				----------------------------------------------+
+|         Étape              |          Question à se poser             |																				        Exemple de réponse (Permutation)      |
++----------------------------+------------------------------------------+																				----------------------------------------------+
+| 1. Condition d’arrêt       | Quand la solution est-elle complète ?    |	le tableayu result est rempli en entier								 Toutes les cases du résultat sont remplies ? |
++----------------------------+------------------------------------------+																				----------------------------------------------+
+| 2. Structure de solution   | Qu’est-ce que je construis ?             |	un tableau result															 Un tableau result[], un tableau used[]       |
++----------------------------+------------------------------------------+																				----------------------------------------------+
+| 3. Possibilités à explorer | Quelles options j’ai à ce stade ?        |	toutes les cases used[i] = 0															 Chaque lettre non encore utilisée            | =
++----------------------------+------------------------------------------+																				----------------------------------------------+
+| 4. Validité d’un choix     | Comment je sais si ce choix est bon ?    |	pas de repetition (fonction permettant de skip si doublons)					 used[i] == 0 (lettre non prise)              |
++----------------------------+------------------------------------------+																				----------------------------------------------+
+| 5. Fixer un choix          | Que dois-je modifier pour avancer ?      |	remplir result[i] avec une des possibilite ET marquer used[i] = 1			 used[i] = 1 ; result[pos] = input[i]         |
++----------------------------+------------------------------------------+																				----------------------------------------------+
+| 6. Explorer la suite       | Comment je poursuis la récursion ?       |	en remplissant les result[i] suivantes avec les used[i] encore dispo (= 0)	 Appel récursif avec pos + 1                  |
++----------------------------+------------------------------------------+																				----------------------------------------------+
+| 7. Backtrack               | Comment je reviens pour essayer autre ?  |	reset used[i] = 0;															 Remettre used[i] = 0                         |
++----------------------------+------------------------------------------+																				----------------------------------------------+
+| 8. Afficher/stocker        | Que faire à la fin de la solution ?      |	print, explorer les autres													 Imprimer result si solution complète         |
++----------------------------+------------------------------------------+																				----------------------------------------------+
+																			par contre l'ensemble des solutions sera termine quand toutes les 
+																			possibilites auront ete explorees, cad...
+
+Mémo à appliquer pour chaque exo
+	Qu’est-ce que je dois absolument savoir pour avancer à chaque étape ?
+	Qu’est-ce que je dois changer à chaque appel, et rendre après ?
+	Ai-je besoin d’un buffer pour stocker, ou juste un compteur ?
+	Est-ce que l’input initial doit être passé (pour ne jamais le modifier) ?
+
+Questions à te poser pour trouver tes paramètres récursifs (valable pour n’importe quel exo)
+De quoi ai-je besoin pour décrire “où j’en suis” dans mon exploration ?
+	(Position courante, étape actuelle, profondeur, etc.)
+		position de i
+
+Qu’est-ce qui doit être “conservé” entre chaque appel pour continuer la construction de la solution ?
+	(Un tableau temporaire, un compteur, la solution partielle, etc.)
+		tableau used dans son etat actuel
+
+Qu’est-ce que je dois “modifier” à chaque étape, puis “remettre comme avant” en revenant en arrière ?
+	(Marqueurs d’utilisation, liste des choix restants, etc.)
+		tableau used, tableau result
+
+De quelles données globales ai-je besoin (qui ne changent jamais) ?
+	(L’input initial, la taille, la solution à stocker, etc.)
+		char *input = av[1]
+
+| Besoin                      | Paramètre possible | Exemple concrets                                                    |
+| --------------------------- | ------------------ | ------------------------------------------------------------------- |
+| **Position actuelle**       | `int pos`          | Permutation : case du résultat à remplir, N-Queen : rangée actuelle |
+| **État de construction**    | `char *result`     | Le buffer où tu écris la solution en cours                          |
+| **Ce qui est déjà utilisé** | `int *used`        | Tableau de marqueurs (`used[]`), set de lettres, etc.               |
+| **Input initial**           | `char *input`      | Chaine de base (“ABCD”), tab de choix, etc.                         |
+| **Compteur/longueur**       | `int n`, `int len` | Taille totale, nombre de pièces à placer, etc.                      |
+| **Solution finale**         | `char **solutions` | Pour stocker toutes les solutions (optionnel)                       |
+
+
+Pour chaque exo, force-toi à écrire :
+
+"À cette étape, quelle(s) variable(s) me disent “où j’en suis” ?"
+
+"Quelles sont les valeurs possibles à tester ?"
+
+"Si j’en essaye une, comment je l’enregistre/je marque ?"
+
+"Comment je reviens en arrière après avoir exploré cette branche ?"
+
+Force-toi à écrire 1 ou 2 lignes concrètes pour chaque réponse
+→ Même faux ou incomplet, ça débloque la compréhension.

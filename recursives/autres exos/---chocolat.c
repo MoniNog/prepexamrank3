@@ -26,7 +26,7 @@ int    f(int choco, int wrap)
   if (choco >= wrap)
   {
 	  reste = choco % wrap; // 2
-	  choco = (choco-reste) / wrap; // 1
+	  choco = choco / wrap; // 1 division entière
     return (choco + f(choco + reste, wrap));
   }
   else

@@ -6,7 +6,7 @@
 /*   By: monoguei <monoguei@student.lausanne42.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 18:45:04 by monoguei          #+#    #+#             */
-/*   Updated: 2025/05/31 14:44:31 by monoguei         ###   ########.fr       */
+/*   Updated: 2025/06/03 08:34:17 by monoguei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,23 +92,38 @@ void print_spaces(int* pos, int size) {
 	printf("\n");
 }
 
+/// @brief 
+/// @param n_space combien d'espace il reste a placer
+/// @param size len de la str a imprimer
+/// @param pos_spaces positions des espaces
+/// @param total_spaces nombre total des espace a poser
 void	place_space(int n_space, int size, int *pos_spaces, int total_spaces)
 {
+	int i;
 	
 	if (n_space == 0)
 	{
 		print_spaces(pos_spaces, total_spaces);
 		return ;
 	}
-	int i = 0;
+	if (total_spaces == n_space)								// pour le premier cas
+		i = 0;
+	else 
+		i = pos_spaces[total_spaces - n_space - 1] + 1;				// permet de commencer la recursion une case plus loin afin deviter les doublons.
+
 	while (i < (size - n_space))
 	{
-		
 		pos_spaces[total_spaces - n_space] = i;						// jattribue cet emplacement pour un espace
 		place_space(n_space - 1, size, pos_spaces, total_spaces);	// jexplore toutes les possibilites que decoulent de ce choix
 		i++;														// jessaie avec un emplacement different.
 	}
 }
+// size = 8
+// n_space = 3
+// total_space = 3
+// pos_spaces = [ ] [ ] [ ]
+
+
 
 int main(int ac, char **av)
 {
@@ -120,7 +135,12 @@ int main(int ac, char **av)
 	int* pos = malloc(sizeof(int)*count_extra_parentheses(s));
 	place_space(count_extra_parentheses(s), strlen(s), pos, count_extra_parentheses(s));
 }
-
+// 1 2 3 => OK
+// 2 1 3
+// 3 1 2
+// 1 3 2
+// 2 3 1
+// 3 2 1
 
 /*
 doublons

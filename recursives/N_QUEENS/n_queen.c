@@ -30,9 +30,9 @@ void    print_board(int *queens, int n)
 		while (col < n)
 		{
 			if (queens[row] == col)//
-				printf("Q");
+				printf("Q ");
 			else
-				printf(".");
+				printf(". ");
 			col++;
 		}
 		printf("\n");
@@ -42,22 +42,22 @@ void    print_board(int *queens, int n)
 	return ;
 }
 
-void    solve_queen(int row, int n, int *queens)
+void    solve_queen(int row, int n, int *queens)	// but c'est de construire une solution => une étape = un appel récursif 
 {
-	if (row == n)
+	if (row == n)									// condition de fin (échec ou réussite)
 	{
-		print_board(queens, n);
+		print_board(queens, n);						// affiche solution
 		return ;
 	}
-	int col = 0;
-	while (col < n)
+	int col = 0;									// initialisation de l'exploration
+	while (col < n)									// explorer tous les choix possibles à cette étape
 	{
-		if (is_safe(col, row, queens) == YES)
+		if (is_safe(col, row, queens) == YES)		// est ce que ce choix est valide ?
 		{
-			queens[row] = col;
-			solve_queen(row + 1, n, queens);
+			queens[row] = col;						// je fixe ce choix
+			solve_queen(row + 1, n, queens);		// je passe à l'étape suivante => je continue la construction de la solution en ayant fait ce choix
 		}
-		col++;
+		col++;										// jessaie la possibilité suivante pour cette étape
 	}
 }
 

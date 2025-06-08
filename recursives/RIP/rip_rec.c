@@ -56,7 +56,6 @@ void	place_spaces(char *core, int pos, int len, int *slots, int spaces_left,
 		}
 		return ;
 	}
-
 	for (int s = 0; s <= spaces_left; s++)
 	{
 		slots[pos] = s;

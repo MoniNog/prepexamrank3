@@ -1,0 +1,71 @@
+1. TSP – Problème du Voyageur de Commerce (42-style)
+Énoncé
+Écrire une fonction en C qui, à partir d’une matrice de distances de taille n x n, calcule la longueur minimale d’un cycle passant exactement une fois par chaque ville et revenant au point de départ.
+
+La matrice est représentée par un tableau 2D d’entiers dist[n][n].
+
+L’ordre de visite est libre, mais chaque ville doit être visitée une seule fois.
+
+Le cycle doit revenir à la ville de départ (ville 0).
+
+Signature attendue :
+
+int tsp(int n, int dist[n][n]);
+Contraintes :
+
+N’utilisez pas de structure dynamique externe (liste, arbre…).
+
+La solution doit être récursive, avec backtracking.
+
+Le nombre de villes n’est jamais supérieur à 10.
+
+(Bonus) Afficher le cycle optimal trouvé.
+
+Exemple d’appel :
+
+int matrix[4][4] = {
+  {0, 2, 9, 10},
+  {1, 0, 6, 4},
+  {15, 7, 0, 8},
+  {6, 3, 12, 0}
+};
+printf("%d\n", tsp(4, matrix)); // Affiche 21 (ou 21 et le chemin)
+2. Powerset – Ensemble des parties (42-style)
+Énoncé
+Écrire une fonction récursive en C qui affiche tous les sous-ensembles (ensemble des parties) d’un tableau d’entiers de taille n.
+
+Chaque sous-ensemble doit conserver l’ordre d’origine.
+
+Afficher un sous-ensemble par ligne (afficher rien pour l’ensemble vide).
+
+Aucun appel à une fonction de la bibliothèque standard pour générer les combinaisons.
+
+Signature attendue :
+
+c
+Copier
+Modifier
+void print_powerset(int *arr, int n);
+Contraintes :
+
+Utilisez la récursivité.
+
+Aucun tableau dynamique additionnel (utilisez un tableau temporaire si besoin).
+
+Exemple d’appel :
+
+c
+Copier
+Modifier
+int arr[] = {1, 2, 3};
+print_powerset(arr, 3);
+/* Affiche par exemple :
+1
+1 2
+1 2 3
+1 3
+2
+2 3
+3
+(rien pour l’ensemble vide)
+*/
