@@ -3,7 +3,7 @@ Fichiers attendus		*.c *.h
 fonctions autorisees	atoi, printf, malloc, calloc, realloc, free
 
 Write a programme that will take as argument an integer n followed by a set s of int. 
-Your programme should display all substs of s whose sum of element n.
+Your programme should display all subsets of s whose sum of element n.
 In cas of a malloc error return exit 1.
 No test with invalid set will be tested (1 1 2)
 

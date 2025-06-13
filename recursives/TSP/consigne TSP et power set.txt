@@ -1,6 +1,8 @@
 1. TSP – Problème du Voyageur de Commerce (42-style)
 Énoncé
-Écrire une fonction en C qui, à partir d’une matrice de distances de taille n x n, calcule la longueur minimale d’un cycle passant exactement une fois par chaque ville et revenant au point de départ.
+Écrire une fonction en C qui, à partir d’une matrice de distances de taille
+ n x n, calcule la longueur minimale d’un cycle passant exactement une fois
+ par chaque ville et revenant au point de départ.
 
 La matrice est représentée par un tableau 2D d’entiers dist[n][n].
 
@@ -30,6 +32,10 @@ int matrix[4][4] = {
   {6, 3, 12, 0}
 };
 printf("%d\n", tsp(4, matrix)); // Affiche 21 (ou 21 et le chemin)
+
+
+
+
 2. Powerset – Ensemble des parties (42-style)
 Énoncé
 Écrire une fonction récursive en C qui affiche tous les sous-ensembles (ensemble des parties) d’un tableau d’entiers de taille n.

@@ -49,7 +49,6 @@ void	permuter(char *input, int len, char *result, int *used, int pos)
 	}
 }
 
-
 int main(int ac, char **av)
 {
 	if (ac == 2)

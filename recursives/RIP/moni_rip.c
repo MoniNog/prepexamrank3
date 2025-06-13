@@ -6,7 +6,7 @@
 /*   By: monoguei <monoguei@student.lausanne42.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 18:45:04 by monoguei          #+#    #+#             */
-/*   Updated: 2025/06/03 08:34:17 by monoguei         ###   ########.fr       */
+/*   Updated: 2025/06/10 17:08:10 by monoguei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,29 @@ char *remove_par(char *s)
 }
 
 
+void	print_output(int *pos_space, char *remove_par, int size)
+{
+	int index_space = 0;
+	int index_par = 0;
+	int index_output = 0;
+
+	while (index_output < size)
+	{
+		if (pos_space[index_space] == index_output)
+		{	
+			printf(" ");
+			index_space++;
+		}
+		else
+		{
+			printf("%c", remove_par[index_par]);
+			index_par++;
+		}
+		index_output++;
+	}
+	return ;
+}
+
 void print_spaces(int* pos, int size) {
 	int i=0;
 	while (i<size) {
@@ -97,13 +120,14 @@ void print_spaces(int* pos, int size) {
 /// @param size len de la str a imprimer
 /// @param pos_spaces positions des espaces
 /// @param total_spaces nombre total des espace a poser
-void	place_space(int n_space, int size, int *pos_spaces, int total_spaces)
+void	place_space(int n_space, int size, int *pos_spaces, int total_spaces, char *remove_par)
 {
 	int i;
 	
 	if (n_space == 0)
 	{
 		print_spaces(pos_spaces, total_spaces);
+		//print_output(pos_spaces, remove_par, size);
 		return ;
 	}
 	if (total_spaces == n_space)								// pour le premier cas
@@ -114,7 +138,7 @@ void	place_space(int n_space, int size, int *pos_spaces, int total_spaces)
 	while (i < (size - n_space))
 	{
 		pos_spaces[total_spaces - n_space] = i;						// jattribue cet emplacement pour un espace
-		place_space(n_space - 1, size, pos_spaces, total_spaces);	// jexplore toutes les possibilites que decoulent de ce choix
+		place_space(n_space - 1, size, pos_spaces, total_spaces, remove_par);	// jexplore toutes les possibilites que decoulent de ce choix
 		i++;														// jessaie avec un emplacement different.
 	}
 }
@@ -125,6 +149,7 @@ void	place_space(int n_space, int size, int *pos_spaces, int total_spaces)
 
 
 
+
 int main(int ac, char **av)
 {
 	char *s = av[1];
@@ -132,8 +157,12 @@ int main(int ac, char **av)
 	printf("The result is '%s'.\n", remove_par(s));
 	printf("There are %i extra parenthesis.\n", count_extra_parentheses(s));
 	printf("There are %i parenthesis.\n", (int)strlen(s) - count_extra_parentheses(s));	
-	int* pos = malloc(sizeof(int)*count_extra_parentheses(s));
-	place_space(count_extra_parentheses(s), strlen(s), pos, count_extra_parentheses(s));
+	int* pos = malloc(sizeof(int) * count_extra_parentheses(s));
+	char *par = malloc(sizeof(char) * ((int)strlen(s) - count_extra_parentheses(s) + 1);
+	for (int i = 0; i < ((int)strlen(s) - count_extra_parentheses(s)); i++)
+		if (par[i] == ' ') i++;
+		else 		(par[i] == remove_par);
+	place_space(count_extra_parentheses(s), strlen(s), pos, count_extra_parentheses(s), remove_par(s));	
 }
 // 1 2 3 => OK
 // 2 1 3
