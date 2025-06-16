@@ -6,12 +6,15 @@ void	print_rip(int *spaces_placed, char *clean, int len)
 {
 	int i = 0;
 	int j = 0;
-	while (i < len)
+	while (clean[j])
 	{
 		if (spaces_placed[i] == 1)
 			printf(" ");
 		else
-			printf("%c", clean[j++]);
+		{
+			printf("%c", clean[j]);
+			j++;
+		}
 		i++;
 	}
 	printf("\n");
@@ -24,11 +27,17 @@ void	rip(int n_spaces,
 			const int total_spaces, 
 			int pos)
 {
-	if (n_space
-	int i = 0;
-	while (i < )
+	if (n_spaces == total_spaces)
 	{
-
+		print_rip(spaces_placed, clean, len_total);
+		return;
+	}
+	int i = pos;
+	while (i < len_total)
+	{
+		spaces_placed[i] = 1;
+		rip(n_spaces + 1, len_total, spaces_placed, clean, total_spaces, i + 1);
+		spaces_placed[i] = 0;
 		i++;
 	}
 }
@@ -36,13 +45,13 @@ void	rip(int n_spaces,
 void	remove_close(char *input, int len, int i, int score)
 {
 	if (i == len)
-	{
 		return;
-	}
+
 	while (i < len)
 	{
 		if (input[i] == '(')
 			score = score + 1;
+			
 		else if (input[i] == ')')
 		{
 			if (score <= 0)
@@ -51,9 +60,7 @@ void	remove_close(char *input, int len, int i, int score)
 				remove_close(input, len, i + 1, score);
 			}	
 			else if (score > 0)
-			{
 				remove_close(input, len, i + 1, score - 1);
-			}
 		}
 		i++;
 	}
@@ -77,9 +84,7 @@ void	remove_open(char *input, int len, int i, int score)
 				remove_open(input, len, i - 1, score);
 			}	
 			else if (score < 0)
-			{
 				remove_open(input, len, i - 1, score + 1);
-			}
 		}
 		i--;
 	}
@@ -115,12 +120,12 @@ int main(int ac, char **av)
 		puts(input);
 	remove_open(input, len, len - 1, 0);
 		puts(input);
-	int n_par = clean_str(input, clean);
-		puts(clean);
-		printf("n_par : %i\n", n_par);
-	int n_spaces = len - n_par;
+	// int n_par = clean_str(input, clean);
+	// 	puts(clean);
+	// 	printf("n_par : %i\n", n_par);
+	// int total_spaces = len - n_par;
 
-	rip(0, len, spaces_placed, clean, n_spaces, 0);
+	// rip(0, len, spaces_placed, clean, total_spaces, 0);
 
 	return 0;
 }

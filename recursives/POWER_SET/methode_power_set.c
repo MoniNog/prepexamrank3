@@ -38,6 +38,9 @@ int main(int ac, char **av)
 	int index_output = 0;
 	
 	power_set(target, set_size, set, index_set, sum, subset_output, index_output);
+
+	free (set);
+	free (subset);
 }
 
 // int target (av[1])

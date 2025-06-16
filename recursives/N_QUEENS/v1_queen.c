@@ -28,7 +28,7 @@ void	print_board(int *queens, int n)
 				printf("Q");
 			else
 				printf(".");
-			col ++;
+			col++;
 		}
 		row++;
 		printf("\n");
