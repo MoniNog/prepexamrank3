@@ -120,10 +120,10 @@ int main(int ac, char **av)
 		puts(input);
 	remove_open(input, len, len - 1, 0);
 		puts(input);
-	// int n_par = clean_str(input, clean);
-	// 	puts(clean);
-	// 	printf("n_par : %i\n", n_par);
-	// int total_spaces = len - n_par;
+	int n_par = clean_str(input, clean);
+		// puts(clean);
+		// printf("n_par : %i\n", n_par);
+	int total_spaces = len - n_par;
 
 	// rip(0, len, spaces_placed, clean, total_spaces, 0);
 

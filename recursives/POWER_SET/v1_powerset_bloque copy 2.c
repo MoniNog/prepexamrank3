@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void	powerset(int target, int sum, int *set, int *subset, int len_set, int i_subset)
+void	powerset(int target, int sum, int *set, int *subset, int len_set, int i_subset, int pos_set)
 {
 	if (sum == target)
 	{
@@ -10,14 +10,13 @@ void	powerset(int target, int sum, int *set, int *subset, int len_set, int i_sub
 		printf("\n");
 		return;
 	}
-	int i = 0;
+	int i = pos_set;// besoin dun index exterieur pour ne pas repetition. initialisation du choix depend du choix que jai fiat a letape precedente
 	while (i < len_set)
 	{
-		if (sum <= target)
+		if (sum + set[i] <= target)
 		{
 			subset[i_subset] = set[i];
-			sum += set[i];
-			powerset(target, sum, set, subset, len_set, i_subset + 1);
+			powerset(target, sum + set[i], set, subset, len_set, i_subset + 1, i + 1);
 		}
 		i++;
 	}
@@ -36,6 +35,6 @@ int main (int ac, char **av)
 	int *subset = calloc(len_set, sizeof(int));
 		if (!subset)	return 1;
 	int sum = 0;
-	powerset(target, sum, set, subset, len_set, 0);
+	powerset(target, sum, set, subset, len_set, 0, 0);
 
 }

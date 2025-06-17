@@ -11,29 +11,23 @@ int	my_strlen(char *s)
 	return (i);
 }
 
-
-
 void remove_close(char *s, int i, int score, int len)
 {
 	if (len == i)
 		return;
 
-	while (len > i)
+	if (s[i] == '(')
+			score++;
+			
+	else if (s[i] == ')')
 	{
-		if (s[i] == '(')
-			score = score + 1;
-		else if (s[i] == ')')
-		{
-			if (score <= 0)
-			{
-				s[i] = ' ';
-				remove_close(s, i + 1, score, len);
-			}
-			else 
-				remove_close(s, i + 1, score - 1 , len);
-		}
-		i++;
+		if (score <= 0)
+			s[i] = ' ';
+		else 
+			score--;
 	}
+	i++;
+	remove_close(s, i, score, len);
 }
 
 void remove_open(char *s, int i, int score, int len)
@@ -62,17 +56,19 @@ void remove_open(char *s, int i, int score, int len)
 
 int		clean_str(char *clean, char *dirty)
 {
-	int i = 0;
-	int j = 0;
-	while (dirty[i])
+	int i_dirty = 0;
+	int i_clean = 0;
+	while (dirty[i_dirty])
 	{
-		if (dirty[i] == ' ')
-			i++;
-		else
-			clean[j++] = dirty[i++];
+		if (dirty[i_dirty] != ' ')
+		{
+			clean[i_clean] = dirty[i_dirty];
+			i_clean++;
+		}
+		i_dirty++;
 	}
-	clean[j] = 0;
-	return j;
+	clean[i_clean] = 0;
+	return (i_clean);
 }
 
 void	print_sol(char *clean, int *pos_spaces, int len_input)
@@ -82,7 +78,10 @@ void	print_sol(char *clean, int *pos_spaces, int len_input)
 	while (i < len_input)
 	{
 		if (pos_spaces[i] == 0)
-			printf("%c", clean[j++]);
+		{
+			printf("%c", clean[j]);
+			j++;
+		}
 		else
 			printf(" ");
 		i++;
@@ -96,21 +95,19 @@ void	rip(char *clean,
 			int *pos_spaces,
 			int pos)
 {
-	if (pos == len_input)
+	if (tot_spaces == n_space_placed)
 	{
 		print_sol(clean, pos_spaces, len_input);
 		printf("\n");
 		return;
 	}
-	int i = pos;
+	int i = pos; // d'utiliser une variable differente (i pour incrementer et parametrer la boucle while, bonne pratique)		
 	while (i < len_input)
 	{
-		if (tot_spaces >= n_space_placed)
-		{
-			pos_spaces[pos] = 1;
-			rip(clean, len_input, tot_spaces, n_space_placed + 1, pos_spaces, i + 1);
-			pos_spaces[pos] = 0;
-		}	
+		pos_spaces[i] = 1;
+		rip(clean, len_input, tot_spaces, n_space_placed + 1, pos_spaces, i + 1);
+		pos_spaces[i] = 0;
+
 		i++;
 	}
 }
@@ -131,7 +128,7 @@ int main(int ac, char **av)
 		remove_close(input, 0, 0, len_input);
 			puts(input);
 		remove_open(input, len_input, 0, len_input - 1);
-			puts(input);
+			 puts(input);
 		len_clean = clean_str(clean, input);
 			puts(clean);
 		int tot_space = len_input - len_clean;

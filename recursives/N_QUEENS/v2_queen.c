@@ -4,7 +4,7 @@
 int	is_safe(int *queen, int row, int col)
 {
 	int i = 0;
-	while (i < row)//(i < n)
+	while (i < row)//(i < n)v
 	{
 		if (queen[i] == col)
 			return 1;
@@ -84,6 +84,6 @@ int main(int ac, char **av)
 			if (!queen) return 1;
 		
 		n_queen(queen, n, 0);
-		return 0;
 	}
+	return 0;
 }

@@ -10,7 +10,7 @@ void	powerset(int target, int sum, int *set, int *subset, int len_set, int i_sub
 		printf("\n");
 		return;
 	}
-	while(i_set < len_set)
+	while (i_set < len_set)
 	{
 		if (sum + set[i_set] <= target)
 		{
@@ -20,6 +20,17 @@ void	powerset(int target, int sum, int *set, int *subset, int len_set, int i_sub
 		i_set++;
 	}
 }
+// 	int i = i_set;
+// 	while(i < len_set)
+// 	{
+// 		if (sum + set[i] <= target)
+// 		{
+// 			subset[i_sub] = set[i];
+// 			powerset(target, sum + set[i_set], set, subset, len_set, i_sub + 1, i + 1);
+// 		}
+// 		i++;
+// 	}
+// }
 
 
 int main (int ac, char **av)
@@ -43,5 +54,6 @@ int main (int ac, char **av)
 	powerset(target, sum, set, subset, len_set, i_sub, 0);
 
 	free (set);
-	free (subset);
+	free()
+
 }
