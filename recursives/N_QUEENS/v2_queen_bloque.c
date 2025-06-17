@@ -4,11 +4,11 @@
 int	is_safe(int *queen, int row, int col)
 {
 	int i = 0;
-	while (i < col)
+	while (i < row)
 	{
 		if (queen[i] == col)
 			return 1;
-		if (abs(queen[i - col]) == abs(i - row))
+		if (abs(queen[i] - col) == abs(i - row))
 			return 1;
 		i++;
 	}
@@ -25,7 +25,7 @@ void print_board(int *queen, int n)
 		col = 0;
 		while (col < n)
 		{
-			if (queen[col] == row)
+			if (queen[row] == col)
 				printf("Q");
 			else
 				printf(".");
@@ -39,20 +39,19 @@ void print_board(int *queen, int n)
 
 void	n_queen(int *queen, int n, int row)
 {
-	if (n == row)
+	if (row == n)
 	{
 		print_board(queen, n);
 		return;
 	}
+
 	int col = 0;
-	while (n < row)
+	while (col < n)
 	{
 		if (is_safe(queen, row, col) == 0)
-			queen[row] == col;
-		else
-			col++;	
+			queen[row] = col;
 		n_queen(queen, n, row + 1);
-		row++;
+		col++;
 	}
 }
 

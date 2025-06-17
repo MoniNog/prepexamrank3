@@ -9,7 +9,7 @@ int		is_safe(int *queen, int row, int col)
 	{
 		if (queen[i] == col)
 			return 1;
-		if (abs(queen[i] - col) == abs(i - row));
+		if (abs(queen[i] - col) == abs(i - row))
 			return 1;
 		i++;
 	}

@@ -19,8 +19,6 @@ void	remove_closed(char *input, int score, int i)
 	}
 }
 
-
-
 int main(int ac, char **av)
 {
 	char	*input = av[1];
