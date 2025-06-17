@@ -38,10 +38,9 @@ void	permuter(char *s,
 				int len,
 				int *used,
 				char *out,
-				int io,
-				int i)
+				int io)
 {
-	if (i == len)
+	if (io == len)
 	{
 		out[io] = 0;
 		printf("%s", out);
@@ -49,13 +48,14 @@ void	permuter(char *s,
 		return ;
 	}
 
+	int i = 0;
 	while (i < len)
 	{
 		if (used[i] == 0)
 		{
 			used[i] = 1;
 			out[io] = s[i];
-			permuter(s, len, used, out, io + 1, i + 1);
+			permuter(s, len, used, out, io + 1);
 			used[i] = 0;			
 		}
 		i++;
@@ -73,8 +73,8 @@ int	main(int ac, char **av)
 
 	bubble_sort(s, len);
 	puts(s);
-	permuter(s, len, used, out, 0, 0);
+	permuter(s, len, used, out, 0);
 
-	free(used);
-	free(out);
+	free (used);
+	free (out);
 }
